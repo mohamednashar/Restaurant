@@ -6,6 +6,7 @@ const Footer = () => {
     <div className="h-12 md:h-24 p-4 lg:px-20 xl:px-40 text-red-500 flex items-center justify-between">
       <Link href="/" className="font-bold text-xl">RESTAURANT</Link>
       <p>© ALL RIGHTS RESERVED.</p>
+      <p>Made By Mohamed Alaa</p>
     </div>
   );
 };
