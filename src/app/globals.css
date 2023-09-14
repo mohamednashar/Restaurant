@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    scrollbar-color: rgb(210,210,210) rgb(239 68 68) !important;
+    scrollbar-width: thin !important;
+  }
+
+  .scrollbarr{
+    scrollbar-color:  rgb(239 68 68) rgb(210,210,210) !important;
+    scrollbar-width:thin !important;
+
+  }
+
+
+
+  * {
+    scrollbar-width: 10px;
+    scrollbar-color: red;
+  }
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: rgb(210,210,210);
+    border-radius: 10px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+   
+    background-color:  rgb(239 68 68);
+    border-radius: 10px;
+
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color:  rgb(178, 86, 86); /* color of the thumb on hover */
+  }
+  
