@@ -1,21 +1,19 @@
-"use client"
+'use client';
+import Link from 'next/link';
+import { IoCartOutline } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
+import { selectCartCount } from '@/Redux/CartSlice';
 
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { useSelector } from "react-redux";
-
-const CartIcon = () => {
-const item=useSelector((state)=>state.cart)
-
+export default function CartIcon() {
+  const count = useSelector(selectCartCount);
   return (
-    <Link href="/cart" className="flex items-center gap-4 hover:font-bold transition-all duration-300">
-      <div className="relative w-8 h-8 md:w-5 md:h-5">
-        <Image src="/cart.png" alt="" fill  />
-      </div>
-      <span>Cart ({item.length})</span>
+    <Link href="/cart" className="relative p-2 hover:bg-surface-100 rounded-xl transition-colors">
+      <IoCartOutline size={22} className="text-surface-700" />
+      {count > 0 && (
+        <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          {count > 99 ? '99+' : count}
+        </span>
+      )}
     </Link>
   );
-};
-
-export default CartIcon;
+}

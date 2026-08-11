@@ -1,64 +1,99 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { IoArrowForward } from 'react-icons/io5';
 
-import { motion, AnimatePresence } from "framer-motion";
-
-
-const data = [
+const slides = [
   {
     id: 1,
-    title: "always fresh & always crispy & always hot",
-    image: "/slide1.png",
+    title: 'Delicious Pizza',
+    subtitle: 'Wood-fired perfection',
+    description: 'Handcrafted with the finest ingredients and baked to perfection in our traditional stone oven.',
+    cta: 'Order Now',
+    link: '/menu',
+    gradient: 'from-brand-600 to-brand-800',
+    emoji: '🍕',
   },
   {
     id: 2,
-    title: "we deliver your order wherever you are in NY",
-    image: "/slide2.png",
+    title: 'Juicy Burgers',
+    subtitle: 'Grilled to perfection',
+    description: 'Premium beef patties with fresh toppings and our secret sauce on a toasted brioche bun.',
+    cta: 'View Menu',
+    link: '/menu',
+    gradient: 'from-amber-600 to-orange-800',
+    emoji: '🍔',
   },
   {
     id: 3,
-    title: "the best pizza to share with your family",
-    image: "/slide3.jpg",
+    title: 'Fresh Pastas',
+    subtitle: 'Authentic Italian taste',
+    description: 'Traditional Italian recipes made with love, fresh pasta, and premium ingredients.',
+    cta: 'Explore',
+    link: '/menu',
+    gradient: 'from-emerald-600 to-teal-800',
+    emoji: '🍝',
   },
 ];
 
-const Slider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+export default function Slider() {
+  const [current, setCurrent] = useState(0);
 
-  
   useEffect(() => {
-
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-    }, 4000);
-    return () => clearInterval(interval);
-
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
-
   return (
-    <div className="flex flex-col h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] md:flex-row">
-      <div className="flex-1 flex items-center justify-center flex-col gap-8 text-red-500 font-bold md:h-full bg-fuchsia-50">
-        <h1 className="text-5xl text-center p-4 uppercase md:text-5xl lg:text-6xl xl:text-7xl">
-          {data[currentSlide].title}
-        </h1>
-        <button className="bg-red-500 rounded-full hover:bg-red-600 transition-all duration-300 py-4 px-8 text-white mb-2">
-          Order Now
-        </button>
+    <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          }`}
+        >
+          <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`} />
+          <div className="absolute inset-0 bg-black/10" />
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 flex items-center">
+            <div className="max-w-xl text-white">
+              <span className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4 animate-fade-in">
+                {slide.subtitle}
+              </span>
+              <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight animate-slide-up">
+                {slide.title}
+              </h1>
+              <p className="text-lg text-white/80 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                {slide.description}
+              </p>
+              <Link
+                href={slide.link}
+                className="inline-flex items-center gap-2 bg-white text-surface-900 px-8 py-4 rounded-xl font-bold hover:bg-surface-50 transition-all duration-200 shadow-lg hover:shadow-xl animate-slide-up"
+                style={{ animationDelay: '0.2s' }}
+              >
+                {slide.cta}
+                <IoArrowForward size={18} />
+              </Link>
+            </div>
+            <div className="hidden lg:flex items-center justify-center absolute right-20 text-[200px] opacity-20 select-none">
+              {slide.emoji}
+            </div>
+          </div>
+        </div>
+      ))}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrent(index)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === current ? 'w-8 bg-white' : 'w-2 bg-white/50 hover:bg-white/70'
+            }`}
+          />
+        ))}
       </div>
-
-      <div className="flex-1 relative w-full md:h-full">
-        <Image
-          src={data[currentSlide].image}
-          alt={""}
-          fill
-          className="object-cover"
-        ></Image>
-      </div>
-    </div>
+    </section>
   );
-};
-
-export default Slider;
+}

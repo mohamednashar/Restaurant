@@ -1,12 +1,9 @@
-import React from "react";
-
-const Notification = () => {
+export default function Notification() {
   return (
-    <div className="h-12 bg-red-500 text-white px-4 items-center flex justify-center text-center text-sm md:text-base cursor-pointer">
-      Free delivery for all orders over 50$. Order your food now!
+    <div className="bg-brand-600 text-white text-center py-2 px-4 text-sm font-medium">
+      <span className="hidden sm:inline">Free delivery on orders over $50! </span>
+      <span className="sm:hidden">Free delivery over $50! </span>
+      <a href="/menu" className="underline hover:no-underline font-semibold">Order Now</a>
     </div>
-    
   );
-};
-
-export default Notification;
+}
