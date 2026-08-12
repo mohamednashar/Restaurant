@@ -5,9 +5,11 @@ export const metadata: Metadata = {
   title: 'Menu - FoodFusion',
 };
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
 async function getCategories() {
   try {
-    const res = await fetch('http://localhost:5000/api/categories', { cache: 'no-store' });
+    const res = await fetch(`${API_BASE}/categories`, { cache: 'no-store' });
     const data = await res.json();
     return data.categories || [];
   } catch {

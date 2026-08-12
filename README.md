@@ -33,9 +33,31 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Deployments
+## Deployment and Environment Variables
 
-- **Frontend (Vercel):** https://your-frontend.vercel.app  
-- **Backend (Render):** https://your-backend.onrender.com
+### Frontend
+- Set `NEXT_PUBLIC_API_URL` in Vercel to your Render backend API URL, for example:
+  - `https://restaurant1-5nvv.onrender.com/api`
+- For local development, use:
+  - `http://localhost:5000/api`
 
-Replace the above URLs with the actual links after you deploy. If you want, I can deploy for you — I already pushed the `backend` folder (excluding `node_modules`).
+### Backend
+- In Render environment settings, set:
+  - `MONGODB_URI`
+  - `JWT_SECRET`
+  - `JWT_EXPIRE`
+  - `NODE_ENV`
+  - `CLOUDINARY_CLOUD_NAME`
+  - `CLOUDINARY_API_KEY`
+  - `CLOUDINARY_API_SECRET`
+  - `FRONTEND_URL` (your Vercel app URL)
+
+### Local development
+- Root `NEXT_PUBLIC_API_URL` is read from environment variables in the frontend.
+- Backend uses `backend/.env` locally and `process.env` in Render.
+
+### Example env files
+- Frontend example: `.env.example`
+- Backend example: `backend/.env.example`
+
+Replace the example values with your actual secrets. Do not commit real secrets to GitHub.
